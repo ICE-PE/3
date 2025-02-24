@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>井字遊戲</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html>
+<head>
+<title>井字遊戲</title>
+<style>
+/* 遊戲棋盤樣式 */
+.board {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  background-color: #ccc;
+  border: 2px solid #333;
+  width: 315px; /* 3*100px + 3*5px */
+  margin: 50px auto;
+}
+
+/* 棋盤格樣式 */
+.cell {
+  width: 100px;
+  height: 100px;
+  background-color: #fff;
+  border: 2px solid #333;
+  font-size: 60px;
+  text-align: center;
+  line-height: 100px;
+  cursor: pointer;
+}
+
+/* 滑鼠懸停效果 */
+.cell:hover {
+  background-color: #eee;
+}
+
+/* 遊戲訊息樣式 */
+#message {
+  text-align: center;
+  font-size: 20px;
+  margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+<div class="board" id="board">
+  <div class="cell" onclick="handleClick(0)"></div>
+  <div class="cell" onclick="handleClick(1)"></div>
+  <div class="cell" onclick="handleClick(2)"></div>
+  <div class="cell" onclick="handleClick(3)"></div>
+  <div class="cell" onclick="handleClick(4)"></div>
+  <div class="cell" onclick="handleClick(5)"></div>
+  <div class="cell" onclick="handleClick(6)"></div>
+  <div class="cell" onclick="handleClick(7)"></div>
+  <div class="cell" onclick="handleClick(8)"></div>
+</div>
+
+<div id="message"></div>
+
+<script>
+// 遊戲狀態
+let board = ['', '', '', '', '', '', '', '', ''];
+let currentPlayer = 'X';
+let gameEnded = false;
+
+// 勝利組合
+const winPatterns = [
+  [0, 1, 2], [3, 4, 5], [6, 7, 8], // 橫排
+  [0, 3, 6], [1, 4, 7], [2, 5, 8], // 直排
+  [0, 4, 8], [2, 4, 6]             // 對角線
+];
+
+// 處理點擊事件
+function handleClick(index) {
+  if (gameEnded || board[index] !== '') {
+    return;
+  }
+
+  board[index] = currentPlayer;
+  document.getElementsByClassName('cell')[index].textContent = currentPlayer;
+
+  if (checkWin()) {
+    document.getElementById('message').textContent = `${currentPlayer} 贏了!`;
+    gameEnded = true;
+    return;
+  }
+
+  if (checkDraw()) {
+      document.getElementById('message').textContent = "平手!";
+      gameEnded = true;
+      return;
+  }
+
+  currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+  document.getElementById('message').textContent = `換 ${currentPlayer} 下`;
+}
+
+// 檢查是否勝利
+function checkWin() {
+  for (const pattern of winPatterns) {
+    const [a, b, c] = pattern;
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// 檢查是否平手
+function checkDraw() {
+    return !board.includes('');
+}
+
+// 初始化遊戲訊息
+document.getElementById('message').textContent = `換 ${currentPlayer} 下`;
+
+</script>
+
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
