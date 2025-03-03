@@ -8,11 +8,9 @@
 </head>
 <style>
   body {
-    margin: 0;                      /* 清除預設邊距 */
     min-height: 100vh;              /* 滿版高度 */
     display: flex;                  /* 啟用 Flexbox */
     flex-direction: column;         /* 垂直排列子元素 */
-    justify-content: center;        /* 垂直置中 */
     align-items: center;            /* 水平置中 */
   }
 </style>
@@ -20,7 +18,8 @@
 <h1>玩完要重新整理才能再玩喔</h1>
 <hr>
 <hr>
-/* 遊戲棋盤樣式 */
+<style>
+  /* 遊戲棋盤樣式 */
 .board {
   display: grid;
   grid-template-columns: repeat(3, 100px);
